@@ -44,10 +44,34 @@ public class LengthOfLongestSubstring {
         return max;
     }
 
+    public static int lengthOfLongestSubstring3(String s) {
+        if (s == null || s.length() <= 0){
+            return 0;
+        }
+        char[] chars = s.toCharArray();
+        int len = chars.length;
+        int left = 0;
+        int right = 0;
+        int result = 0;
+        char[] tmp = new char[256];
+        while (left < len){
+            if (right < len && tmp[chars[right]] == 0){
+                tmp[chars[right] ] = 1;
+                right++;
+            }else {
+                tmp[chars[left]] = 0;
+                left++;
+            }
+            result = Math.max(result,right-left);
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         String s = "aaaabc";
         System.out.println(lengthOfLongestSubstring(s));
         System.out.println(lengthOfLongestSubstring2(s));
+        System.out.println(lengthOfLongestSubstring3(s));
 
     }
 }
