@@ -47,7 +47,7 @@ public class CombinationSum2 {
     }
 
     public static void main(String[] args) {
-        int[] candidates = new int[]{10,1,2,7,6,1,5};
+        int[] candidates = new int[]{10,1,2,7,6,1,5,1};
         int target = 8;
         List<List<Integer>> lists = combinationSum2(candidates, target);
         for (List<Integer> tmp:lists){
