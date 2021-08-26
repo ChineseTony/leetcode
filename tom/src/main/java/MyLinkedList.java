@@ -162,4 +162,26 @@ public class MyLinkedList {
         }
         return dummy.next;
     }
+
+
+    public ListNode partition(ListNode head, int x) {
+        ListNode large = new ListNode(-1);
+        ListNode small = new ListNode(-1);
+        ListNode l = large;
+        ListNode s = small;
+        ListNode cur = head;
+        while (cur != null){
+            if (cur.val < x){
+                s.next = cur;
+                s = s.next;
+            }else {
+                l.next = cur;
+                l = l.next;
+            }
+            cur = cur.next;
+        }
+        l.next = null;
+        s.next = large.next;
+        return small.next;
+    }
 }
