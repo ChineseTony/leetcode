@@ -184,4 +184,11 @@ public class MyLinkedList {
         s.next = large.next;
         return small.next;
     }
+
+    public ListNode sortList(ListNode head) {
+        if (head == null || head.next == null){
+            return head;
+        }
+        return head;
+    }
 }
