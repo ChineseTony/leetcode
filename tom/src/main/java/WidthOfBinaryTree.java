@@ -100,7 +100,43 @@ public class WidthOfBinaryTree {
             right = _right;
             next = _next;
         }
-    };
-    
+    }
+
+    int res ;
+    public int maxPath(TreeNode root){
+        if (root == null){
+            return 0;
+        }
+        getHeight(root);
+        return res;
+    }
+    private int getHeight(TreeNode root){
+        if (root == null){
+            return 0;
+        }
+        int left = getHeight(root.left);
+        int right = getHeight(root.right);
+        res = Math.max(res,left+right);
+        return 1 + Math.max(left,right);
+    }
+
+    int min = Integer.MIN_VALUE;
+    public int getMaxValue(TreeNode root){
+        if (root == null){
+            return 0;
+        }
+        getValue(root);
+        return min;
+    }
+
+    private int getValue(TreeNode root){
+        if (root == null){
+            return 0;
+        }
+        int left = getValue(root.left);
+        int right = getHeight(root.right);
+        min = Math.max(min,left+right+root.val);
+        return root.val + Math.max(left,right);
+    }
     
 }
