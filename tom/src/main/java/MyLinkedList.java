@@ -1,3 +1,5 @@
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -75,6 +77,7 @@ public class MyLinkedList {
             tmp = tmp.next;
         }
         printListNode(dummy.next);
+        System.out.println(isPalindrome2(dummy.next));
         ListNode result = reverse(dummy.next);
         printListNode(result);
         ListNode reverseNode= reverseKGroup(result,3);
@@ -190,5 +193,78 @@ public class MyLinkedList {
             return head;
         }
         return head;
+    }
+
+
+    public boolean isPalindrome(ListNode head) {
+        StringBuilder stringBuilder = new StringBuilder();
+        ListNode cur = head;
+        while (cur != null){
+            stringBuilder.append(cur.val);
+            cur = cur.next;
+        }
+        String tmp = stringBuilder.toString();
+        String tmp2 = stringBuilder.reverse().toString();
+        return tmp.equals(tmp2);
+    }
+
+
+    public static boolean isPalindrome2(ListNode head) {
+        if (head == null || head.next == null){
+            return true;
+        }
+        Deque<ListNode> stack = new ArrayDeque<>();
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast != null && fast.next != null){
+            stack.push(slow);
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        if (fast != null){
+            slow = slow.next;
+        }
+        while (slow != null && !stack.isEmpty()){
+            ListNode poll = stack.poll();
+            if (poll.val != slow.val){
+                return false;
+            }
+            slow = slow.next;
+        }
+        return true;
+    }
+
+    private static ListNode getMiddle(ListNode head){
+        if (head == null || head.next == null){
+            return head;
+        }
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast != null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
+    }
+
+    public ListNode detectCycle(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        while (true){
+            if (fast == null || fast.next == null){
+                return null;
+            }
+            fast = fast.next.next;
+            slow = slow.next;
+            if (slow == fast){
+                break;
+            }
+        }
+        fast = head;
+        while (fast != slow){
+            fast = fast.next;
+            slow = slow.next;
+        }
+        return slow;
     }
 }
