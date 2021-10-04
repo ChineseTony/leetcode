@@ -72,11 +72,13 @@ public class MyLinkedList {
     public static void main(String[] args) {
         ListNode dummy = new ListNode(-1);
         ListNode tmp = dummy;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 11; i++) {
             tmp.next = new ListNode(i);
             tmp = tmp.next;
         }
         printListNode(dummy.next);
+        printListNode2(dummy.next,0);
+
         System.out.println(isPalindrome2(dummy.next));
         ListNode result = reverse(dummy.next);
         printListNode(result);
@@ -92,6 +94,20 @@ public class MyLinkedList {
         }
         System.out.println();
     }
+
+
+    public  static void printListNode2(ListNode head,int index){
+        if (head != null){
+            if (index % 2 == 1) {
+                System.out.print(head.val+" ");
+                printListNode2(head.next,index+1);
+            }else {
+                printListNode2(head.next,index+1);
+                System.out.print(head.val+" ");
+            }
+        }
+    }
+
 
     public static ListNode reverse(ListNode head){
         if(head == null || head.next == null){
@@ -266,5 +282,61 @@ public class MyLinkedList {
             slow = slow.next;
         }
         return slow;
+    }
+
+    public ListNode mergeKLists(ListNode[] lists) {
+        return merge(lists,0,lists.length-1);
+    }
+
+    private ListNode merge(ListNode[] listNodes,int left,int right){
+        if (left < right){
+            int mid = (right - left) / 2 + left;
+            ListNode leftNode= merge(listNodes,left,mid);
+            ListNode rightNode = merge(listNodes,mid+1,right);
+            return merge(leftNode,rightNode);
+        }else if (left == right){
+            return listNodes[left];
+        }else {
+            return null;
+        }
+    }
+
+    private ListNode merge(ListNode list1,ListNode list2){
+        ListNode p = list1;
+        ListNode q = list2;
+        ListNode dummy = new ListNode(-1);
+        ListNode cur = dummy;
+        while (p != null && q != null){
+            if (p.val < q.val){
+                cur.next = p;
+                ListNode next = p.next;
+                p.next = null;
+                p = next;
+                cur = cur.next;
+            }else {
+                cur.next = q;
+                ListNode next = q.next;
+                q.next = null;
+                q = next;
+                cur = cur.next;
+            }
+        }
+        if (p != null){
+            cur.next = p;
+        }
+        if (q != null){
+            cur.next = q;
+        }
+        return dummy.next;
+    }
+
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode p = headA;
+        ListNode q = headB;
+        while (p != q){
+            p = p == null ? headA : p.next;
+            q = q == null ? headB : q.next;
+        }
+        return p;
     }
 }
