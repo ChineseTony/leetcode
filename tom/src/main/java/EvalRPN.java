@@ -16,23 +16,23 @@ public class EvalRPN {
         for (int i = 0; i < len; i++) {
             String tmp = tokens[i];
             if ("+".equals(tmp)){
-                int a = stack.pollLast();
-                int b = stack.pollLast();
-                stack.offer(a + b);
+                int a = stack.pop();
+                int b = stack.pop();
+                stack.push(a + b);
             }else if ("-".equals(tmp)){
-                int a = stack.pollLast();
-                int b = stack.pollLast();
-                stack.offer(b - a);
+                int a = stack.pop();
+                int b = stack.pop();
+                stack.push(b - a);
             }else if ("*".equals(tmp)){
-                int a = stack.pollLast();
-                int b = stack.pollLast();
-                stack.offer(a * b);
+                int a = stack.pop();
+                int b = stack.pop();
+                stack.push(a * b);
             }else if ("/".equals(tmp)){
-                int a = stack.pollLast();
-                int b = stack.pollLast();
-                stack.offer(b / a);
+                int a = stack.pop();
+                int b = stack.pop();
+                stack.push(b / a);
             }else {
-                stack.offer(Integer.valueOf(tmp));
+                stack.push(Integer.valueOf(tmp));
             }
         }
         return stack.peek();
