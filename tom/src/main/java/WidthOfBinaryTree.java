@@ -1,5 +1,7 @@
 
 import java.util.ArrayDeque;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Queue;
 
 /**
@@ -81,6 +83,31 @@ public class WidthOfBinaryTree {
         return root;
 
     }
+
+
+    private Map<TreeNode,Integer> map  = new HashMap<>();
+
+    public int rob(TreeNode root) {
+        if (root == null){
+            return 0;
+        }
+        int value1 = root.val;
+        if (map.containsKey(root)){
+            return map.get(root);
+        }
+        if (root.left != null){
+            value1 += rob(root.left.left) + rob(root.left.right);
+        }
+        if (root.right != null){
+            value1 += rob(root.right.left) + rob(root.right.right);;
+        }
+        int value2 = rob(root.left) + rob(root.right);
+        int result = Math.max(value2,value1);
+        map.put(root,result);
+        return  result;
+    }
+
+
 
     class Node {
         public int val;
