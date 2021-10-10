@@ -76,14 +76,16 @@ public class MyLinkedList {
             tmp.next = new ListNode(i);
             tmp = tmp.next;
         }
-        printListNode(dummy.next);
-        printListNode2(dummy.next,0);
-
-        System.out.println(isPalindrome2(dummy.next));
+//        printListNode(dummy.next);
+//        printListNode2(dummy.next,0);
+//
+//        System.out.println(isPalindrome2(dummy.next));
         ListNode result = reverse(dummy.next);
-        printListNode(result);
+//        printListNode(result);
         ListNode reverseNode= reverseKGroup(result,3);
         printListNode(reverseNode);
+        ListNode node = new MyLinkedList().sortListByMerge(reverseNode);
+        printListNode(node);
     }
 
     public static void printListNode(ListNode head){
@@ -204,11 +206,36 @@ public class MyLinkedList {
         return small.next;
     }
 
+    //插入排序
     public ListNode sortList(ListNode head) {
         if (head == null || head.next == null){
             return head;
         }
-        return head;
+        ListNode dummy = new ListNode(-1);
+        ListNode cur = head;
+        while (cur != null){
+            ListNode next = cur.next;
+            ListNode pre = dummy;
+            while (pre.next != null && pre.next.val < cur.val){
+                pre = pre.next;
+            }
+            cur.next = pre.next;
+            pre.next = cur;
+            cur = next;
+        }
+        return dummy.next;
+    }
+
+    public ListNode sortListByMerge(ListNode head) {
+        if (head == null || head.next == null){
+            return head;
+        }
+        ListNode middle = getMiddle(head);
+        ListNode second = middle.next;
+        middle.next = null;
+        ListNode  left =sortListByMerge(head);
+        ListNode  right =sortListByMerge(second);
+        return merge(right, left);
     }
 
 
@@ -254,7 +281,7 @@ public class MyLinkedList {
         if (head == null || head.next == null){
             return head;
         }
-        ListNode fast = head;
+        ListNode fast = head.next;
         ListNode slow = head;
         while (fast != null && fast.next != null){
             fast = fast.next.next;

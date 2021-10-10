@@ -76,5 +76,24 @@ public class PathSum {
         dfs(tmp,root.right,sum);
     }
 
+    public int sumNumbers2(TreeNode root) {
+        if (root == null){
+            return 0;
+        }
+        return dfsNumber(root,0);
+    }
+
+    private int dfsNumber(TreeNode node,int sum){
+        if (node == null){
+            return  0;
+        }
+        sum = sum * 10 + node.val;
+        if (node.left == null && node.right == null){
+            return sum;
+        }
+        return dfsNumber(node.left,sum) + dfsNumber(node.right,sum);
+    }
+
+
 
 }
