@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 
+
 /**
  * @author wangtao
  * @date 2021/9/2
@@ -164,6 +165,45 @@ public class WidthOfBinaryTree {
         int right = getHeight(root.right);
         min = Math.max(min,left+right+root.val);
         return root.val + Math.max(left,right);
+    }
+
+
+    public static String tree2str(TreeNode root) {
+        if (root == null){
+            return "";
+        }
+        inorder(root);
+        return sb.toString();
+
+    }
+    public static StringBuilder sb = new StringBuilder();
+
+    private static void inorder(TreeNode node){
+        if (node == null){
+            return;
+        }
+        sb.append(node.val);
+        if(node.left!=null || (node.left==null &&node.right!=null)){
+            sb.append("(");
+            inorder(node.left);
+            sb.append(")");
+        }
+        if(node.right!=null){
+            sb.append("(");
+            inorder(node.right);
+            sb.append(")");
+        }
+    }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.left.left = new TreeNode(4);
+        root.right = new TreeNode(3);
+        String s = tree2str(root);
+        //1(2(4))(3)
+        //1(2(4)())(3())
+        System.out.println(s);
     }
     
 }
