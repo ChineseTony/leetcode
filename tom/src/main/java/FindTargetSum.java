@@ -16,9 +16,6 @@ public class FindTargetSum {
     }
 
     private static void dfs(int[] nums,int i,List<Integer> tmp,int sum,int target,List<List<Integer>> result){
-        if (sum > target){
-            return;
-        }
         if (target == sum){
             result.add(new ArrayList<>(tmp));
         }
@@ -32,7 +29,7 @@ public class FindTargetSum {
     }
 
     public static void main(String[] args) {
-        int[] nums = new int[]{2,7,11,15,3,4,9};
+        int[] nums = new int[]{2,7,11,15,3,4,9,-2};
         int target = 7;
         List<List<Integer>> targetSum = findTargetSum(nums, target);
         for(List<Integer> tmp:targetSum){
