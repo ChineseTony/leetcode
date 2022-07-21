@@ -4,6 +4,35 @@
  */
 public class Leetcode565 {
 
+
+    private TreeNode next;
+
+
+    public TreeNode convertBiNode(TreeNode root) {
+        if(root == null){
+            return null;
+        }
+        convertBiNode(root.right);
+        root.right = next;
+        next = root;
+        convertBiNode(root.left);
+        root.left = null;
+        return next;
+    }
+
+    public TreeNode pruneTree(TreeNode root) {
+        if (root == null){
+            return root;
+        }
+        root.left = pruneTree(root.left);
+        root.right = pruneTree(root.right);
+        if (root.left == null && root.right == null && root.val == 0){
+            return null;
+        }
+        return root;
+    }
+
+
     public static int arrayNesting(int[] nums) {
         if (nums == null || nums.length <= 0) {
             return 0;
