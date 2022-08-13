@@ -1,4 +1,6 @@
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,8 +35,28 @@ public class Leetcode768 {
         return result;
     }
 
+
+
+    public static int maxChunksToSorted2(int[] arr) {
+        int len = arr.length;
+        Deque<Integer> stack = new ArrayDeque<>();
+        for(int i=0;i<len;i++){
+            int tmp = arr[i];
+            if(stack.isEmpty() || tmp >= stack.peek()){
+                stack.push(tmp);
+            }else {
+                int tmpValue = stack.poll();
+                while (!stack.isEmpty() &&  stack.peek() > tmp) {
+                    stack.pop();
+                }
+                stack.push(tmpValue);
+            }
+        }
+        return stack.size();
+    }
     public static void main(String[] args) {
         int[] arr = new int[]{2,1,3,4,4};
         System.out.println(maxChunksToSorted(arr));
+        System.out.println(maxChunksToSorted2(arr));
     }
 }
