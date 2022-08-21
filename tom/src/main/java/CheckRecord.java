@@ -44,4 +44,20 @@ public class CheckRecord {
             return 2 * f(n-1) + f(n-2);
         }
     }
+
+
+    public int isPrefixOfWord(String sentence, String searchWord) {
+
+        String[] words = sentence.split(" ");
+        int len = words.length;
+        for (int i = 0; i < len; i++) {
+            String word = words[i];
+            if (word.startsWith(searchWord)){
+                return i;
+            }
+        }
+
+        return -1;
+
+    }
 }
