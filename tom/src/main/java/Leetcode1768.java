@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author wangtao
  * @date 2022/10/23
@@ -30,6 +33,51 @@ public class Leetcode1768 {
         return sb.toString();
 
     }
+
+
+    public int countMatches(List<List<String>> items, String ruleKey, String ruleValue) {
+        int result = 0;
+        int index = 0;
+        if ("color".equals(ruleKey)){
+            index = 1;
+        } else if ("name".equals(ruleKey)) {
+            index = 2;
+        }else{
+            index = 0;
+        }
+        for (List<String> item:items){
+            if (ruleValue.equals(item.get(index))){
+                result++;
+            }
+        }
+        return result;
+    }
+
+    private final static String PUSH = "Push";
+
+    private final static String POP = "Pop";
+
+    public List<String> buildArray(int[] target, int n) {
+        List<String> result = new ArrayList<>();
+        int i = 0;
+        int index = 1;
+        for (int j = 0; j < n; j++) {
+            if (i >= target.length){
+                break;
+            }
+            if (target[i] == index){
+                result.add(PUSH);
+                i++;
+            }else {
+                result.add(PUSH);
+                result.add(POP);
+            }
+            index++;
+        }
+        return result;
+    }
+
+
 
     public static void main(String[] args) {
         String word1 = "abcd";
