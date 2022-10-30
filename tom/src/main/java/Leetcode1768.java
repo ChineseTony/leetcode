@@ -53,9 +53,9 @@ public class Leetcode1768 {
         return result;
     }
 
-    private final static String PUSH = "Push";
+    private static final String PUSH = "Push";
 
-    private final static String POP = "Pop";
+    private static final String POP = "Pop";
 
     public List<String> buildArray(int[] target, int n) {
         List<String> result = new ArrayList<>();
