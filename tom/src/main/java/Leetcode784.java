@@ -27,6 +27,19 @@ public class Leetcode784 {
         dfs(chars,index+1,result);
     }
 
+
+    public boolean all(String[] words1, String[] word2){
+        StringBuilder sb1 = new StringBuilder();
+        StringBuilder sb2 = new StringBuilder();
+        for (String word : words1){
+            sb1.append(word);
+        }
+        for (String word : word2){
+            sb2.append(word);
+        }
+        return sb1.toString().equals(sb2.toString());
+    }
+
     private static char cateLetter(char c){
         if (Character.isLowerCase(c)){
             return (char) (c - 32);
