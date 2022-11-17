@@ -77,12 +77,45 @@ public class Leetcode1768 {
         return result;
     }
 
+    public int numMatchingSubseq(String s, String[] words) {
+        int result = 0;
+        for(String word : words) {
+            if (match(s,word)){
+                result++;
+            }
+        }
+        return result;
+    }
+
+
+    // abcdea ada
+    // a 0 5  d 3
+    // p = 3
+    private boolean match(String s,String word) {
+        int len1 = s.length();
+        int len2 = word.length();
+        int i = 0;
+        int j = 0;
+        while (i < len1 && j < len2){
+            if (s.charAt(i) != word.charAt(j)){
+                i++;
+            }else {
+                i++;
+                j++;
+            }
+        }
+        return j >= len2;
+    }
 
 
     public static void main(String[] args) {
+        Leetcode1768 leetcode = new Leetcode1768();
         String word1 = "abcd";
         String word2 = "pq";
-        System.out.println(new Leetcode1768().mergeAlternately(word1,word2));
+        System.out.println(leetcode.mergeAlternately(word1,word2));
+        String s = "abcde";
+        String[] words = new String[]{"a","bb","acd","ace"};
+        System.out.println(leetcode.numMatchingSubseq(s, words));
 
     }
 }
