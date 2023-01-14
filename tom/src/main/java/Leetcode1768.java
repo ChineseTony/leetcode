@@ -107,6 +107,42 @@ public class Leetcode1768 {
         return j >= len2;
     }
 
+    public int expressiveWords(String s, String[] words) {
+        int result = 0;
+        int[] chars = new int[26];
+        for (char c:s.toCharArray()){
+            chars[c - 'a'] ++;
+        }
+        for (String word:words){
+            if (canExpress(word,chars)){
+                result++;
+            }
+        }
+        return result;
+    }
+
+    private boolean canExpress(String s,int[] chars){
+        int[] tmpArr = new int[26];
+        for (char c:s.toCharArray()){
+            tmpArr[c - 'a'] ++;
+        }
+        for (int i = 0; i < 26; i++) {
+            if (tmpArr[i] == 0 && chars[i] != 0){
+                return false;
+            }
+            if (tmpArr[i] > chars[i]){
+                return false;
+            }
+            if (chars[i] - tmpArr[i] == 0){
+                continue;
+            }
+            if (chars[i] - tmpArr[i] <= 2){
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     public static void main(String[] args) {
         Leetcode1768 leetcode = new Leetcode1768();
@@ -116,6 +152,11 @@ public class Leetcode1768 {
         String s = "abcde";
         String[] words = new String[]{"a","bb","acd","ace"};
         System.out.println(leetcode.numMatchingSubseq(s, words));
+        words = new String[]{"hello", "hi", "helo"};
+        s = "heeellooo";
+        System.out.println(leetcode.expressiveWords(s,words));
+
+
 
     }
 }
